@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+		<!-- <script src="https://use.fontawesome.com/d5895a3b55.js"></script> -->
+
+		<!-- Vue.js development version -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+		<!-- Vue.js production version -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
+		<link rel="stylesheet" href="styles.min.css" type="text/css" />
+
+		<title>Deck of Many Things</title>
+	</head>
+	<body>
+		<div id="app">
+			<header>
+				<h1>Deck of Many Things</h1>
+			</header>
+			<main>
+				<div class="card-image">
+					<img :src="'images/' + drawData.lastCard.image" :alt="drawData.lastCard.name">
+				</div>
+				<div class="card-info">
+					<div class="card-name"><strong>{{drawData.lastCard.name}}</strong></div>
+					<div class="card-description">{{drawData.lastCard.description}}</div>
+					<div class="card-long-description">{{drawData.lastCard.longDescription}}</div>
+				</div>
+				<div class="drawn-cards">
+					<div class="drawn-card" v-for="drawnCard in drawData.history" v-bind:class="{ removed: drawnCard.removeCard }">
+						<img :src="'images/' + drawnCard.image" alt="drawnCard.name">
+					</div>
+				</div>
+			</main>
+			<footer class="deck-actions">
+				<button class="draw-card" @click="getCard()">Get Card</button>
+			</footer>
+		</div>
+
+		<script type="text/javascript" src="scripts.min.js"></script>
+	</body>
+</html>
