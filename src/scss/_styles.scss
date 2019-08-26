@@ -1,0 +1,150 @@
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+html {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	font-family: arial;
+	color: #333;
+}
+
+#app {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	background: $domt-bkgd;
+
+	&.draconic {
+		font-family: Draconic;
+	}
+}
+
+header,
+footer {
+	height: 50px;
+	background: $domt-colour;
+	color: #fff;
+	font-size: 20px;
+	display: flex;
+	align-items: center;
+	padding: 0 20px;
+}
+header {
+	h1 {
+		font-weight: 300;
+		text-transform: uppercase;
+		font-size: 16px;
+
+		.draconic & {
+			font-size: 18px;
+			font-weight: bold;
+		}
+	}
+}
+.settings-icon {
+	position: absolute;
+	right: 20px;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+main {
+	padding: 20px;
+	height: calc(100vh - 100px);
+	padding: 20px;
+}
+
+.current-card {
+	height: calc(100% - 60px);
+	position: relative;
+	padding-bottom: 1px;
+
+	&:before {
+		content: '';
+		position: absolute;
+		padding-bottom: 30px;
+		bottom: 0;
+		width: 100%;
+		background: -moz-linear-gradient(top, rgba($domt-bkgd,0) 0%, $domt-bkgd 80%);
+		background: -webkit-linear-gradient(top, rgba($domt-bkgd,0) 0%, $domt-bkgd 80%);
+		background: linear-gradient(to bottom, rgba($domt-bkgd,0) 0%, $domt-bkgd 80%);
+	}
+	&.full-image {
+		.card-image {
+			height: 100%;
+		}
+	}
+}
+.card-image,
+#card-info {
+	height: 50%;
+}
+.card-image {
+	padding-bottom: 20px;
+	display: flex;
+
+	img {
+		display: block;
+		margin: 0 auto;
+		object-fit: contain;
+		cursor: pointer;
+	}
+}
+#card-info {
+	overflow: scroll;
+	padding: 16px 0 20px;
+	border-top: 2px solid $domt-colour;
+}
+.card-name {
+	font-size: 20px;
+}
+.card-description {
+	padding: 15px 0;
+}
+.card-long-description {
+	white-space: pre-wrap;
+}
+.drawn-cards {
+	white-space: nowrap;
+	max-width: 100%;
+	overflow: auto;
+	border: 1px solid #333;
+	padding: 4px;
+	height: 60px;
+}
+.drawn-card {
+	height: 50px;
+	margin-right: 8px;
+	display: inline-block;
+	vertical-align: bottom;
+
+	&:last-child {
+		margin-right: 0;
+	}
+
+	img {
+		max-height: 100%;
+		margin: 0 auto;
+		display: block;
+		cursor: pointer;
+	}
+}
+
+footer {
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.draw-card {
+	color: #fff;
+	font-size: 20px;
+	text-transform: uppercase;
+	border: 2px solid #fff;
+	background: transparent;
+	border-radius: 5px;
+	padding: 4px 18px;
+	cursor: pointer;
+	outline: none;
+}

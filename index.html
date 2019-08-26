@@ -4,9 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
-		<!-- <script src="https://use.fontawesome.com/d5895a3b55.js"></script> -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
 		<!-- Vue.js development version -->
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -20,30 +18,46 @@
 		<title>Deck of Many Things</title>
 	</head>
 	<body>
-		<div id="app">
+		<div id="app" :class="{'draconic' : options.draconic == true}" :style="{ height: windowHeight }">
 			<header>
 				<h1>Deck of Many Things</h1>
+				<div class="settings-icon" @click="toggleMenu()">
+					<i class="fas fa-bars"></i>
+				</div>
 			</header>
 			<main>
-				<div class="card-image">
-					<img :src="'images/' + drawData.lastCard.image" :alt="drawData.lastCard.name">
-				</div>
-				<div class="card-info">
-					<div class="card-name"><strong>{{drawData.lastCard.name}}</strong></div>
-					<div class="card-description">{{drawData.lastCard.description}}</div>
-					<div class="card-long-description">{{drawData.lastCard.longDescription}}</div>
-				</div>
-				<div class="drawn-cards">
-					<div class="drawn-card" v-for="drawnCard in drawData.history" v-bind:class="{ removed: drawnCard.removeCard }">
-						<img :src="'images/' + drawnCard.image" alt="drawnCard.name">
+				<template v-if="menuOpen">
+					<button @click="resetGame()">Reshuffle deck</button>
+					<br>
+					<br>
+					<input type="checkbox" name="checkbox-draconic" id="checkbox-draconic" value="checkbox-draconic" v-model="options.draconic">
+					<label for="checkbox-draconic" class="fas"></label>
+					<label for="checkbox-draconic">Draconic</label>
+				</template>
+
+				<template v-else>
+					<div class="current-card" :class="{ 'full-image' : fullImage == true}">
+						<div class="card-image" @click="toggleView()">
+							<img :src="'images/' + drawData.currentCard.image" :alt="drawData.currentCard.name">
+						</div>
+						<div id="card-info" v-if="fullImage != true">
+							<div class="card-name" v-if="drawData.currentCard.name"><strong>{{drawData.currentCard.name}}</strong></div>
+							<div class="card-description" v-if="drawData.currentCard.description">{{drawData.currentCard.description}}</div>
+							<div class="card-long-description" v-if="drawData.currentCard.longDescription">{{drawData.currentCard.longDescription}}</div>
+						</div>
 					</div>
-				</div>
+					<div class="drawn-cards">
+						<div class="drawn-card" v-for="(drawnCard, index) in drawData.history" :class="{ removed: drawnCard.removeCard }" @click="setCardFromHistory(index)" :data-history-index="index" >
+							<img :src="'images/' + drawnCard.image" alt="drawnCard.name">
+						</div>
+					</div>
+				</template>
+
 			</main>
 			<footer class="deck-actions">
-				<button class="draw-card" @click="getCard()">Get Card</button>
+				<button class="draw-card" @click="getCard()">Draw Card</button>
 			</footer>
 		</div>
-
 		<script type="text/javascript" src="scripts.min.js"></script>
 	</body>
 </html>
