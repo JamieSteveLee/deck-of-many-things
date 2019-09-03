@@ -17,7 +17,7 @@ body {
 	background: $domt-bkgd;
 
 	&.draconic {
-		font-family: Draconic;
+		font-family: draconic, cursive;
 	}
 }
 
@@ -33,12 +33,11 @@ footer {
 }
 header {
 	h1 {
-		font-weight: 300;
+		font-weight: normal;
 		text-transform: uppercase;
-		font-size: 16px;
+		font-size: 18px;
 
 		.draconic & {
-			font-size: 18px;
 			font-weight: bold;
 		}
 	}
@@ -100,6 +99,11 @@ main {
 .card-name {
 	font-size: 20px;
 }
+.card-removed {
+	padding-top: 15px;
+	font-weight: bold;
+	color: $domt-colour;
+}
 .card-description {
 	padding: 15px 0;
 }
@@ -139,7 +143,7 @@ footer {
 }
 .draw-card {
 	color: #fff;
-	font-size: 20px;
+	font-size: 18px;
 	text-transform: uppercase;
 	border: 2px solid #fff;
 	background: transparent;

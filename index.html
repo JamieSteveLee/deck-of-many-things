@@ -42,6 +42,7 @@
 						</div>
 						<div id="card-info" v-if="fullImage != true">
 							<div class="card-name" v-if="drawData.currentCard.name"><strong>{{drawData.currentCard.name}}</strong></div>
+							<div class="card-removed" v-if="drawData.currentCard.removeCard">Card removed from deck</div>
 							<div class="card-description" v-if="drawData.currentCard.description">{{drawData.currentCard.description}}</div>
 							<div class="card-long-description" v-if="drawData.currentCard.longDescription">{{drawData.currentCard.longDescription}}</div>
 						</div>

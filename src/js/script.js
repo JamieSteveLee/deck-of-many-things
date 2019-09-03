@@ -49,9 +49,8 @@ var app = new Vue({
 			this.menuOpen = false;
 
 			// Scroll to top of long description
-			setTimeout(function() {
-				document.getElementById('card-info').scrollTop = 0;
-			}, 100);
+			var cardInfo = document.getElementById('card-info');
+			if(cardInfo) cardInfo.scrollTop = 0;
 
 			// Save game to local storage
 			this.saveGame();
