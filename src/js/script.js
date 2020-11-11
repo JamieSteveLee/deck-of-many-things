@@ -9,15 +9,17 @@ var app = new Vue({
 		drawData: {
 			currentDeck: [],
 			history: [],
-			currentCard: ''
+			currentCard: '',
+			totalCards: 1,
 		},
 		options: {
 			draconic: false
 		},
 		startCard: {
+			cardIndex: 0,
 			image: "standard/x_card0.jpg",
 			longDescription: "Click \"DRAW\" to get a card from the deck. Each time a card is drawn from the deck, it is replaced (making it possible to draw the same card twice) unless the draw is The Jester (Red Joker) or The Fool (Black Joker), in which case the card is discarded from the deck.\n\nThe artwork for these cards was created by George Barr and originally appeared in Dragon Magazine #148."
-		}
+		},
 	},
 	methods: {
 		shuffle: function(array) {
@@ -40,7 +42,13 @@ var app = new Vue({
 
 			// Show top card of shuffled deck, and add to history
 			this.drawData.currentCard = this.drawData.currentDeck[0];
-			this.drawData.history.unshift(this.drawData.currentDeck[0]);
+
+			// Set the card index (key)
+			this.drawData.currentCard.cardIndex = this.drawData.totalCards;
+			this.drawData.totalCards++;
+
+			//Add a copy of the card to history
+			this.drawData.history.unshift({ ...this.drawData.currentDeck[0] });
 
 			// If remove, remove from current deck
 			if(this.drawData.currentDeck[0].removeCard) this.drawData.currentDeck.shift();
@@ -49,14 +57,17 @@ var app = new Vue({
 			this.menuOpen = false;
 
 			// Scroll to top of long description
-			var cardInfo = document.getElementById('card-info');
-			if(cardInfo) cardInfo.scrollTop = 0;
+			this.$refs.cardinfo.scrollTop = 0;
+
+			// Scroll to start of drawn cards
+			this.$refs.drawncards.scrollLeft = 0;
 
 			// Save game to local storage
 			this.saveGame();
 		},
 		setCardFromHistory: function(historyIndex) {
 			this.drawData.currentCard = this.drawData.history[historyIndex];
+			this.$refs.cardinfo.scrollTop = 0;
 		},
 		toggleView: function() {
 			this.fullImage == false ? this.fullImage = true : this.fullImage = false;
@@ -87,6 +98,11 @@ var app = new Vue({
 		},
 		getWindowHeight(event) {
 			this.windowHeight = window.innerHeight + 'px';
+		},
+	},
+	computed: {
+		totalCards() {
+			return this.drawData.history.length;
 		}
 	},
 	beforeMount() {

@@ -22,7 +22,8 @@
 			<header>
 				<h1>Deck of Many Things</h1>
 				<div class="settings-icon" @click="toggleMenu()">
-					<i class="fas fa-bars"></i>
+					<i class="fas fa-times" v-if="menuOpen"></i>
+					<i class="fas fa-bars" v-else></i>
 				</div>
 			</header>
 			<main>
@@ -40,15 +41,15 @@
 						<div class="card-image" @click="toggleView()">
 							<img :src="'images/' + drawData.currentCard.image" :alt="drawData.currentCard.name">
 						</div>
-						<div id="card-info" v-if="fullImage != true">
+						<div id="card-info" ref="cardinfo" v-if="fullImage != true">
 							<div class="card-name" v-if="drawData.currentCard.name"><strong>{{drawData.currentCard.name}}</strong></div>
 							<div class="card-removed" v-if="drawData.currentCard.removeCard">Card removed from deck</div>
 							<div class="card-description" v-if="drawData.currentCard.description">{{drawData.currentCard.description}}</div>
 							<div class="card-long-description" v-if="drawData.currentCard.longDescription">{{drawData.currentCard.longDescription}}</div>
 						</div>
 					</div>
-					<div class="drawn-cards">
-						<div class="drawn-card" v-for="(drawnCard, index) in drawData.history" :class="{ removed: drawnCard.removeCard }" @click="setCardFromHistory(index)" :data-history-index="index" >
+					<div class="drawn-cards" ref="drawncards">
+						<div class="drawn-card" v-for="(drawnCard, index) in drawData.history" :class="{ removed : drawnCard.removeCard, selected : drawnCard.cardIndex == drawData.currentCard.cardIndex }" @click="setCardFromHistory(index)" :key="drawnCard.cardIndex" >
 							<img :src="'images/' + drawnCard.image" alt="drawnCard.name">
 						</div>
 					</div>
