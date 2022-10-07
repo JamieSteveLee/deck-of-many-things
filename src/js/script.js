@@ -57,7 +57,7 @@ var app = new Vue({
 			this.menuOpen = false;
 
 			// Scroll to top of long description
-			this.$refs.cardinfo.scrollTop = 0;
+			if(this.$refs.cardinfo != undefined) this.$refs.cardinfo.scrollTop = 0;
 
 			// Scroll to start of drawn cards
 			this.$refs.drawncards.scrollLeft = 0;
@@ -67,7 +67,7 @@ var app = new Vue({
 		},
 		setCardFromHistory: function(historyIndex) {
 			this.drawData.currentCard = this.drawData.history[historyIndex];
-			this.$refs.cardinfo.scrollTop = 0;
+			if(this.$refs.cardinfo != undefined) this.$refs.cardinfo.scrollTop = 0;
 		},
 		toggleView: function() {
 			this.fullImage == false ? this.fullImage = true : this.fullImage = false;
